@@ -13,6 +13,7 @@ import net.minecraft.world.item.Rarity;
 public class ModItems {
 
     public static final Item TOTEM_OF_KEEP_INVENTORY = register("totem_of_keep_inventory");
+    public static final Item TOTEM_OF_SHOCKWAVE = register("totem_of_shockwave");
 
     private static Item register(String name) {
         var id = Identifier.fromNamespaceAndPath(MoreTotems.MOD_ID, name);
@@ -22,8 +23,9 @@ public class ModItems {
     }
 
     public static void initialize() {
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(entries ->
-                entries.addAfter(Items.TOTEM_OF_UNDYING, TOTEM_OF_KEEP_INVENTORY)
-        );
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(entries -> {
+            entries.addAfter(Items.TOTEM_OF_UNDYING, TOTEM_OF_KEEP_INVENTORY);
+            entries.addAfter(TOTEM_OF_KEEP_INVENTORY, TOTEM_OF_SHOCKWAVE);
+        });
     }
 }

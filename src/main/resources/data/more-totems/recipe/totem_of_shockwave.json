@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:totem_of_undying",
+    "minecraft:end_crystal"
+  ],
+  "result": {
+    "id": "more-totems:totem_of_shockwave",
+    "count": 1
+  }
+}
