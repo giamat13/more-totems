@@ -29,6 +29,7 @@ public class MoreTotems implements ModInitializer {
 
 		PayloadTypeRegistry.playS2C().register(TotemActivatedPayload.TYPE, TotemActivatedPayload.CODEC);
 		PayloadTypeRegistry.playS2C().register(ShockwavePayload.TYPE, ShockwavePayload.CODEC);
+		PayloadTypeRegistry.playS2C().register(TotemNoFallPayload.TYPE, TotemNoFallPayload.CODEC);
 
 		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
 			if (!alive) InventoryStorage.restore(oldPlayer, newPlayer);

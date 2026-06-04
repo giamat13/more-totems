@@ -34,18 +34,33 @@ public class PlayerKeepInventoryMixin {
         Inventory inv = player.getInventory();
         int size = inv.getContainerSize();
         for (int i = 0; i < size; i++) {
-            if (inv.getItem(i).is(ModItems.TOTEM_OF_KEEP_INVENTORY)) {
-                inv.setItem(i, ItemStack.EMPTY);
+            ItemStack stack = inv.getItem(i);
+            if (stack.is(ModItems.TOTEM_OF_KEEP_INVENTORY)) {
+                useTotemCharge(stack, player, false, i, null);
                 return true;
             }
         }
         for (EquipmentSlot slot : InventoryStorage.EQUIPMENT_SLOTS) {
-            if (player.getItemBySlot(slot).is(ModItems.TOTEM_OF_KEEP_INVENTORY)) {
-                player.setItemSlot(slot, ItemStack.EMPTY);
+            ItemStack stack = player.getItemBySlot(slot);
+            if (stack.is(ModItems.TOTEM_OF_KEEP_INVENTORY)) {
+                useTotemCharge(stack, player, true, -1, slot);
                 return true;
             }
         }
         return false;
+    }
+
+    private void useTotemCharge(ItemStack stack, ServerPlayer player, boolean isEquipSlot, int slotIndex, EquipmentSlot equipSlot) {
+        int newDamage = stack.getDamageValue() + 1;
+        if (newDamage >= stack.getMaxDamage()) {
+            if (isEquipSlot) {
+                player.setItemSlot(equipSlot, ItemStack.EMPTY);
+            } else {
+                player.getInventory().setItem(slotIndex, ItemStack.EMPTY);
+            }
+        } else {
+            stack.setDamageValue(newDamage);
+        }
     }
 
     private List<ItemStack> saveInventory(ServerPlayer player) {
