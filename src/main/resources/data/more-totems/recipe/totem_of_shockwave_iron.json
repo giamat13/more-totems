@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "more-totems:totem_of_shockwave",
+    "minecraft:iron_sword"
+  ],
+  "result": {
+    "id": "more-totems:totem_of_shockwave_iron",
+    "count": 1
+  }
+}

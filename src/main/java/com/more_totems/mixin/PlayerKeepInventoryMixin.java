@@ -3,6 +3,7 @@ package com.more_totems.mixin;
 import com.more_totems.InventoryStorage;
 import com.more_totems.ModItems;
 import com.more_totems.TotemActivatedPayload;
+import com.more_totems.TotemUtils;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -23,29 +24,11 @@ public class PlayerKeepInventoryMixin {
     @Inject(method = "die", at = @At("HEAD"))
     private void onDie(DamageSource source, CallbackInfo ci) {
         ServerPlayer player = (ServerPlayer) (Object) this;
-        if (findAndRemoveTotem(player)) {
+        if (TotemUtils.findAndDamageTotem(player, ModItems.TOTEM_OF_KEEP_INVENTORY)) {
             InventoryStorage.SAVED.put(player.getUUID(), saveInventory(player));
             clearInventory(player);
             ServerPlayNetworking.send(player, TotemActivatedPayload.INSTANCE);
         }
-    }
-
-    private boolean findAndRemoveTotem(ServerPlayer player) {
-        Inventory inv = player.getInventory();
-        int size = inv.getContainerSize();
-        for (int i = 0; i < size; i++) {
-            if (inv.getItem(i).is(ModItems.TOTEM_OF_KEEP_INVENTORY)) {
-                inv.setItem(i, ItemStack.EMPTY);
-                return true;
-            }
-        }
-        for (EquipmentSlot slot : InventoryStorage.EQUIPMENT_SLOTS) {
-            if (player.getItemBySlot(slot).is(ModItems.TOTEM_OF_KEEP_INVENTORY)) {
-                player.setItemSlot(slot, ItemStack.EMPTY);
-                return true;
-            }
-        }
-        return false;
     }
 
     private List<ItemStack> saveInventory(ServerPlayer player) {
