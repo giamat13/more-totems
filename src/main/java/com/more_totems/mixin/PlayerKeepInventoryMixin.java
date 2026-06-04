@@ -3,6 +3,7 @@ package com.more_totems.mixin;
 import com.more_totems.InventoryStorage;
 import com.more_totems.ModItems;
 import com.more_totems.TotemActivatedPayload;
+import com.more_totems.TotemUtils;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -23,43 +24,10 @@ public class PlayerKeepInventoryMixin {
     @Inject(method = "die", at = @At("HEAD"))
     private void onDie(DamageSource source, CallbackInfo ci) {
         ServerPlayer player = (ServerPlayer) (Object) this;
-        if (findAndRemoveTotem(player)) {
+        if (TotemUtils.findAndDamageTotem(player, ModItems.TOTEM_OF_KEEP_INVENTORY)) {
             InventoryStorage.SAVED.put(player.getUUID(), saveInventory(player));
             clearInventory(player);
             ServerPlayNetworking.send(player, TotemActivatedPayload.INSTANCE);
-        }
-    }
-
-    private boolean findAndRemoveTotem(ServerPlayer player) {
-        Inventory inv = player.getInventory();
-        int size = inv.getContainerSize();
-        for (int i = 0; i < size; i++) {
-            ItemStack stack = inv.getItem(i);
-            if (stack.is(ModItems.TOTEM_OF_KEEP_INVENTORY)) {
-                useTotemCharge(stack, player, false, i, null);
-                return true;
-            }
-        }
-        for (EquipmentSlot slot : InventoryStorage.EQUIPMENT_SLOTS) {
-            ItemStack stack = player.getItemBySlot(slot);
-            if (stack.is(ModItems.TOTEM_OF_KEEP_INVENTORY)) {
-                useTotemCharge(stack, player, true, -1, slot);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void useTotemCharge(ItemStack stack, ServerPlayer player, boolean isEquipSlot, int slotIndex, EquipmentSlot equipSlot) {
-        int newDamage = stack.getDamageValue() + 1;
-        if (newDamage >= stack.getMaxDamage()) {
-            if (isEquipSlot) {
-                player.setItemSlot(equipSlot, ItemStack.EMPTY);
-            } else {
-                player.getInventory().setItem(slotIndex, ItemStack.EMPTY);
-            }
-        } else {
-            stack.setDamageValue(newDamage);
         }
     }
 
