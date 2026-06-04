@@ -149,9 +149,9 @@ public class MoreTotems implements ModInitializer {
     }
 
     static void enchantInventory(ServerPlayer player) {
-        net.minecraft.core.Registry<Enchantment> enchReg =
-                player.level().registryAccess().registryOrThrow(Registries.ENCHANTMENT);
-        Holder<Enchantment> unbreaking = enchReg.getHolderOrThrow(Enchantments.UNBREAKING);
+        net.minecraft.core.HolderLookup.RegistryLookup<Enchantment> enchReg =
+                player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+        Holder<Enchantment> unbreaking = enchReg.getOrThrow(Enchantments.UNBREAKING);
 
         Inventory inv = player.getInventory();
         for (int i = 0; i < inv.getContainerSize(); i++) {

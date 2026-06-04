@@ -17,11 +17,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class FallDamageTotemMixin {
 
     @Inject(method = "causeFallDamage", at = @At("HEAD"), cancellable = true)
-    private void onCauseFallDamage(float fallDistance, float multiplier, DamageSource source,
+    private void onCauseFallDamage(double fallDistance, float multiplier, DamageSource source,
                                    CallbackInfoReturnable<Boolean> cir) {
         LivingEntity self = (LivingEntity) (Object) this;
         if (!(self instanceof ServerPlayer player)) return;
-        if (Math.ceil((fallDistance - 3.0f) * multiplier) <= 0) return;
+        if (Math.ceil((fallDistance - 3.0) * multiplier) <= 0) return;
 
         if (TotemUtils.findAndDamageTotem(player, ModItems.TOTEM_OF_NO_FALL)) {
             ServerPlayNetworking.send(player, TotemNoFallPayload.INSTANCE);
