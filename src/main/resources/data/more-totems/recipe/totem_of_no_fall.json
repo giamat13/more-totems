@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:totem_of_undying",
+    "minecraft:water_bucket"
+  ],
+  "result": {
+    "id": "more-totems:totem_of_no_fall",
+    "count": 1
+  }
+}

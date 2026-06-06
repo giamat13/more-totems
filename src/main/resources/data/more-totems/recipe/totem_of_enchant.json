@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "more-totems:totem_of_keep_inventory",
+    "minecraft:enchanting_table"
+  ],
+  "result": {
+    "id": "more-totems:totem_of_enchant",
+    "count": 1
+  }
+}

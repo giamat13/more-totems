@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "more-totems:totem_of_keep_inventory",
+    "minecraft:iron_sword"
+  ],
+  "result": {
+    "id": "more-totems:totem_of_keep_inventory_iron",
+    "count": 1
+  }
+}
