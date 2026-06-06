@@ -43,3 +43,4 @@ replay_*.log
 
 logs/
 *.log
+.claude/

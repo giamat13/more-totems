@@ -1,0 +1,48 @@
+# .claudecodeignore — files Claude Code should skip when reading/searching.
+# Keeps context focused on source code, not build output, caches, or binaries.
+
+# ── Build output ───────────────────────────────────────────────
+build/
+out/
+classes/
+bin/
+*.jar
+
+# ── Gradle ─────────────────────────────────────────────────────
+.gradle/
+gradle/wrapper/gradle-wrapper.jar
+
+# ── Fabric Loom cache (decompiled/remapped Minecraft, regenerated) ──
+.fabric/
+run/
+remappedSrc/
+
+# ── IDE ────────────────────────────────────────────────────────
+.idea/
+.vscode/
+.settings/
+.classpath
+.project
+*.iml
+*.ipr
+*.iws
+*.launch
+
+# ── Binary assets (not text — nothing to read) ─────────────────
+*.png
+*.ogg
+*.nbt
+
+# ── Minecraft runtime / dev artifacts (should not be in the repo) ──
+options.txt
+usercache.json
+downloads/
+logs/
+*.log
+hs_err_*.log
+replay_*.log
+*.hprof
+*.jfr
+
+# ── OS ─────────────────────────────────────────────────────────
+*.DS_Store
