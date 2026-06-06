@@ -35,10 +35,10 @@ public class MoreTotems implements ModInitializer {
     public void onInitialize() {
         ModItems.initialize();
 
-        PayloadTypeRegistry.playS2C().register(TotemActivatedPayload.TYPE, TotemActivatedPayload.CODEC);
-        PayloadTypeRegistry.playS2C().register(ShockwavePayload.TYPE, ShockwavePayload.CODEC);
-        PayloadTypeRegistry.playS2C().register(TotemNoFallPayload.TYPE, TotemNoFallPayload.CODEC);
-        PayloadTypeRegistry.playS2C().register(TotemEnchantPayload.TYPE, TotemEnchantPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(TotemActivatedPayload.TYPE, TotemActivatedPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(ShockwavePayload.TYPE, ShockwavePayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(TotemNoFallPayload.TYPE, TotemNoFallPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(TotemEnchantPayload.TYPE, TotemEnchantPayload.CODEC);
 
         ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
             if (!alive) InventoryStorage.restore(oldPlayer, newPlayer);

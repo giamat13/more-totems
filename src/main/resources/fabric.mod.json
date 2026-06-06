@@ -2,14 +2,15 @@
 	"schemaVersion": 1,
 	"id": "more-totems",
 	"version": "${version}",
-	"name": "more-totems",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "More Totems",
+	"description": "Adds new totems that go beyond the Totem of Undying: keep your inventory, survive fatal falls, auto-enchant your gear, and knock back nearby enemies with a shockwave. Each comes in a stronger iron-upgraded variant.",
 	"authors": [
-		"Me!"
+		"giamat13"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/giamat13/more-totems",
+		"sources": "https://github.com/giamat13/more-totems",
+		"issues": "https://github.com/giamat13/more-totems/issues"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/more-totems/icon.png",
@@ -31,8 +32,8 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.19.3",
-		"minecraft": "~1.21.11",
-		"java": ">=21",
+		"minecraft": "~26.1.2",
+		"java": ">=25",
 		"fabric-api": "*"
 	}
 }

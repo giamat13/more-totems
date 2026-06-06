@@ -1,6 +1,6 @@
 package com.more_totems;
 
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -35,8 +35,8 @@ public class ModItems {
     }
 
     public static void initialize() {
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(entries -> {
-            entries.addAfter(Items.TOTEM_OF_UNDYING,
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(output -> {
+            output.insertAfter(Items.TOTEM_OF_UNDYING,
                     TOTEM_OF_KEEP_INVENTORY,
                     TOTEM_OF_SHOCKWAVE,
                     TOTEM_OF_NO_FALL,
