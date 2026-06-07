@@ -3,6 +3,7 @@ package com.more_totems;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.Holder;
@@ -44,6 +45,15 @@ public class MoreTotems implements ModInitializer {
             if (!alive) InventoryStorage.restore(oldPlayer, newPlayer);
         });
 
+        // ── DYING IRON: kill on tick ──────────────────────────────────────────────
+        ServerTickEvents.END_SERVER_TICK.register(server -> {
+            for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+                if (player.isAlive() && isHoldingDyingIron(player)) {
+                    player.hurt(player.level().damageSources().genericKill(), Float.MAX_VALUE);
+                }
+            }
+        });
+
         // ── BEFORE DEATH ─────────────────────────────────────────────────────────
         // Iron-variant totems activate when incoming damage would be lethal
         // (raw-damage check; generous for safety — may fire on heavily-armoured hits)
@@ -51,13 +61,8 @@ public class MoreTotems implements ModInitializer {
             if (!(entity instanceof ServerPlayer player)) return true;
             if (player.getHealth() - amount > 0) return true; // not lethal
 
-            // Keep Inventory Iron: prevent death, inventory stays intact naturally
-            if (TotemUtils.findAndDamageTotem(player, ModItems.TOTEM_OF_KEEP_INVENTORY_IRON)) {
-                player.setHealth(1.0f);
-                applyTotemEffects(player);
-                ServerPlayNetworking.send(player, TotemActivatedPayload.INSTANCE);
-                return false;
-            }
+            // Totem of Dying Iron: skip all iron totem protection
+            if (isHoldingDyingIron(player)) return true;
 
             // Enchant Iron: prevent death + enchant all items
             if (TotemUtils.findAndDamageTotem(player, ModItems.TOTEM_OF_ENCHANT_IRON)) {
@@ -92,6 +97,9 @@ public class MoreTotems implements ModInitializer {
         ServerLivingEntityEvents.ALLOW_DEATH.register((entity, damageSource, damageAmount) -> {
             if (!(entity instanceof ServerPlayer player)) return true;
 
+            // Totem of Dying Iron: skip all base totem protection
+            if (isHoldingDyingIron(player)) return true;
+
             // Shockwave (base or iron): save player + knock enemies
             boolean hasShockwave =
                     TotemUtils.findAndDamageTotem(player, ModItems.TOTEM_OF_SHOCKWAVE_IRON) ||
@@ -120,6 +128,11 @@ public class MoreTotems implements ModInitializer {
     }
 
     // ── Helpers ──────────────────────────────────────────────────────────────────
+
+    private static boolean isHoldingDyingIron(ServerPlayer player) {
+        return player.getMainHandItem().is(ModItems.TOTEM_OF_DYING_IRON) ||
+               player.getOffhandItem().is(ModItems.TOTEM_OF_DYING_IRON);
+    }
 
     private static void applyTotemEffects(ServerPlayer player) {
         player.removeAllEffects();

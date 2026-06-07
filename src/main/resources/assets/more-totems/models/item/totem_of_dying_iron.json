@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "more-totems:item/totem_of_keep_inventory_iron"
+    "layer0": "more-totems:item/totem_of_dying_iron"
   }
 }

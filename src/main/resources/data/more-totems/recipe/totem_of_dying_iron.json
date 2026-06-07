@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "more-totems:totem_of_keep_inventory",
+    "minecraft:totem_of_undying",
     "minecraft:iron_sword"
   ],
   "result": {
-    "id": "more-totems:totem_of_keep_inventory_iron",
+    "id": "more-totems:totem_of_dying_iron",
     "count": 1
   }
 }
