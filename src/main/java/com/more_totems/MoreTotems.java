@@ -4,6 +4,8 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.Holder;
@@ -21,6 +23,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.phys.AABB;
 
 import org.slf4j.Logger;
@@ -31,6 +34,11 @@ import java.util.List;
 public class MoreTotems implements ModInitializer {
     public static final String MOD_ID = "more-totems";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+
+    /** When true, Totem of Dying Iron activates from anywhere in inventory, not just held in hand. */
+    public static final GameRules.Key<GameRules.BooleanValue> DYING_IRON_FROM_INVENTORY =
+            GameRuleRegistry.register("dyingIronFromInventory", GameRules.Category.PLAYER,
+                    GameRuleFactory.createBooleanRule(false));
 
     @Override
     public void onInitialize() {
@@ -130,6 +138,9 @@ public class MoreTotems implements ModInitializer {
     // ── Helpers ──────────────────────────────────────────────────────────────────
 
     private static boolean isHoldingDyingIron(ServerPlayer player) {
+        if (player.level().getGameRules().getBoolean(DYING_IRON_FROM_INVENTORY)) {
+            return TotemUtils.hasTotem(player, ModItems.TOTEM_OF_DYING_IRON);
+        }
         return player.getMainHandItem().is(ModItems.TOTEM_OF_DYING_IRON) ||
                player.getOffhandItem().is(ModItems.TOTEM_OF_DYING_IRON);
     }
