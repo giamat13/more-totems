@@ -15,11 +15,14 @@
 | **Totem of Enchant** | Saves you from a fatal blow **and applies Unbreaking III** to every piece of damageable gear you're carrying. | 10 |
 | **Totem of Shockwave** | Saves you from death and **knocks every nearby enemy back** in an 8-block shockwave. | Single use |
 
+### ☠️ Totem of Dying
+
+A cursed totem that does the opposite of the rest: **the instant you hold it in your hand, it kills you.** Handle with care. Single use (you only need it once).
+
 ### 🛡️ Iron Variants
 
-Every totem has an upgraded **Iron** version, crafted by combining the base totem with an **Iron Sword**. Iron totems are more proactive — they trigger on the **lethal hit, before you die**, rather than at the moment of death, giving you a cleaner, more reliable save. Each Iron totem carries **10 charges**.
+Every saving totem has an upgraded **Iron** version, crafted by combining the base totem with an **Iron Sword**. Iron totems are more proactive — they trigger on the **lethal hit, before you die**, rather than at the moment of death, giving you a cleaner, more reliable save. Each Iron totem carries **10 charges**.
 
-- **Iron Totem of Keep Inventory**
 - **Iron Totem of No Fall**
 - **Iron Totem of Enchant**
 - **Iron Totem of Shockwave**
@@ -40,6 +43,7 @@ All totems are crafted **shapeless** on any crafting grid.
 | **Totem of No Fall** | Totem of Undying **+** Water Bucket |
 | **Totem of Shockwave** | Totem of Undying **+** End Crystal |
 | **Totem of Enchant** | Totem of Keep Inventory **+** Enchanting Table |
+| **Totem of Dying** | Totem of Undying **+** Wither Skeleton Skull |
 
 ### Iron variants
 
@@ -47,12 +51,11 @@ Each Iron totem = its **base totem + Iron Sword**.
 
 | Result | Recipe |
 |--------|--------|
-| **Iron Totem of Keep Inventory** | Totem of Keep Inventory **+** Iron Sword |
 | **Iron Totem of No Fall** | Totem of No Fall **+** Iron Sword |
 | **Iron Totem of Enchant** | Totem of Enchant **+** Iron Sword |
 | **Iron Totem of Shockwave** | Totem of Shockwave **+** Iron Sword |
 
-> 💡 The totems do **not** need to be held in your hand — they work from anywhere in your inventory.
+> 💡 By default totems only work while **held in a hand**. Enable the `totemsWorkInInventory` game rule (`/gamerule totemsWorkInInventory true`) to let them activate from **anywhere in your inventory**.
 
 ---
 

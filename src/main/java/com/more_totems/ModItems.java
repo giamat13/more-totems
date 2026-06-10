@@ -20,8 +20,10 @@ public class ModItems {
     // Single-use shockwave (no durability bar — consumed in one activation)
     public static final Item TOTEM_OF_SHOCKWAVE             = register("totem_of_shockwave", 0);
 
+    // Cursed totem: kills its holder the instant it is held in hand.
+    public static final Item TOTEM_OF_DYING                 = register("totem_of_dying", 0);
+
     // Iron-sword upgraded variants (activate on lethal hit, before death)
-    public static final Item TOTEM_OF_KEEP_INVENTORY_IRON   = register("totem_of_keep_inventory_iron", 10);
     public static final Item TOTEM_OF_SHOCKWAVE_IRON        = register("totem_of_shockwave_iron", 10);
     public static final Item TOTEM_OF_NO_FALL_IRON          = register("totem_of_no_fall_iron", 10);
     public static final Item TOTEM_OF_ENCHANT_IRON          = register("totem_of_enchant_iron", 10);
@@ -41,7 +43,7 @@ public class ModItems {
                     TOTEM_OF_SHOCKWAVE,
                     TOTEM_OF_NO_FALL,
                     TOTEM_OF_ENCHANT,
-                    TOTEM_OF_KEEP_INVENTORY_IRON,
+                    TOTEM_OF_DYING,
                     TOTEM_OF_SHOCKWAVE_IRON,
                     TOTEM_OF_NO_FALL_IRON,
                     TOTEM_OF_ENCHANT_IRON
