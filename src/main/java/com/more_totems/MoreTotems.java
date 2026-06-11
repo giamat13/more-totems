@@ -50,6 +50,10 @@ public class MoreTotems implements ModInitializer {
                 GameRules.Category.PLAYER,
                 GameRuleFactory.createBooleanRule(false));
 
+        // Gadget / interaction features
+        SpearThrowing.register();
+        RedstonePulses.register();
+
         PayloadTypeRegistry.clientboundPlay().register(TotemActivatedPayload.TYPE, TotemActivatedPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(ShockwavePayload.TYPE, ShockwavePayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(TotemNoFallPayload.TYPE, TotemNoFallPayload.CODEC);

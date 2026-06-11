@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "DII",
+    "RR ",
+    "DII"
+  ],
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "R": "minecraft:redstone",
+    "D": "minecraft:dropper"
+  },
+  "result": {
+    "id": "more-totems:ore_shooter",
+    "count": 1
+  }
+}

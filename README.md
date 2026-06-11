@@ -31,6 +31,20 @@ When a totem saves you, you also receive a burst of protective effects — **Reg
 
 ---
 
+## 🧰 Gadgets & Tweaks
+
+Beyond totems, the mod adds a few combat/utility extras:
+
+| Feature | What it does |
+|---------|--------------|
+| **Grapple Hook** | Right-click while aiming at a block (up to 32 blocks away) to yank yourself toward it. Cancels the launch's fall damage. Has durability. |
+| **Ore Shooter** | A hitscan weapon that fires an ore from your inventory — the stronger the ore (coal → … → diamond → netherite), the more damage it deals. Always spends the strongest ore you carry. |
+| **Throwable Spears** | Any vanilla `*_spear` can be thrown like a trident: spend **one arrow** to hurl it, dealing tier-scaled damage, and the spear lands where it strikes so you can pick it back up. (Hitscan throw — no Riptide/Channeling, as those are water-based.) |
+| **Armoured Elytra** | Combine an **Elytra + any Chestplate** in an anvil (100 levels) to get an elytra that also grants the chestplate's armour. The anvil is **destroyed** by this single use. |
+| **Flint & Steel pulse** | Right-clicking a block with **flint and steel** emits a 2-tick redstone pulse from that block (on top of lighting fire). |
+
+---
+
 ## 🛠️ Crafting
 
 All totems are crafted **shapeless** on any crafting grid.
@@ -44,6 +58,8 @@ All totems are crafted **shapeless** on any crafting grid.
 | **Totem of Shockwave** | Totem of Undying **+** End Crystal |
 | **Totem of Enchant** | Totem of Keep Inventory **+** Enchanting Table |
 | **Totem of Dying** | Totem of Undying **+** Wither Skeleton Skull |
+| **Grapple Hook** | Iron Ingots **+** String (shaped) |
+| **Ore Shooter** | Droppers **+** Iron Ingots **+** Redstone (shaped) |
 
 ### Iron variants
 
