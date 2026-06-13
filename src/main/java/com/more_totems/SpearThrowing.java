@@ -56,7 +56,7 @@ public final class SpearThrowing {
                 return InteractionResult.PASS; // need an arrow to throw
             }
 
-            if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
+            if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
                 if (!creative) consumeArrow(player);
 
                 HitResult hit = RangedUtils.raycast(player, RANGE);
@@ -77,7 +77,7 @@ public final class SpearThrowing {
                 }
 
                 level.playSound(null, player.getX(), player.getY(), player.getZ(),
-                        SoundEvents.TRIDENT_THROW.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+                        SoundEvents.TRIDENT_THROW, SoundSource.PLAYERS, 1.0f, 1.0f);
             }
             return InteractionResult.SUCCESS;
         });

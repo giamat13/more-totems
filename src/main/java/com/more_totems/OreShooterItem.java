@@ -55,7 +55,7 @@ public class OreShooterItem extends Item {
             return InteractionResult.PASS;
         }
 
-        if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
+        if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
             consumeOne(player, ammo);
             float damage = AMMO.get(ammo);
 
@@ -66,7 +66,7 @@ public class OreShooterItem extends Item {
 
             RangedUtils.damageItem(player.getItemInHand(hand), player);
             level.playSound(null, player.getX(), player.getY(), player.getZ(),
-                    SoundEvents.CROSSBOW_SHOOT.value(), SoundSource.PLAYERS, 0.9f, 1.0f);
+                    SoundEvents.CROSSBOW_SHOOT, SoundSource.PLAYERS, 0.9f, 1.0f);
         }
         return InteractionResult.SUCCESS;
     }

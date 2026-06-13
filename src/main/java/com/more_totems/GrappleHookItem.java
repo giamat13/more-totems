@@ -38,7 +38,7 @@ public class GrappleHookItem extends Item {
             return InteractionResult.PASS;
         }
 
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             Vec3 pull = hit.getLocation().subtract(player.position());
             double distance = pull.length();
             double speed = Math.min(2.4, 0.7 + distance * 0.12);
@@ -48,11 +48,10 @@ public class GrappleHookItem extends Item {
             player.setDeltaMovement(velocity.x, velocity.y + 0.3, velocity.z);
             player.hurtMarked = true;        // sync the new velocity to the client
             player.fallDistance = 0;         // the launch shouldn't hurt
-            player.hasImpulse = true;
 
             RangedUtils.damageItem(player.getItemInHand(hand), player);
             level.playSound(null, player.getX(), player.getY(), player.getZ(),
-                    SoundEvents.FISHING_BOBBER_THROW.value(), SoundSource.PLAYERS, 0.7f, 1.4f);
+                    SoundEvents.FISHING_BOBBER_THROW, SoundSource.PLAYERS, 0.7f, 1.4f);
         }
         return InteractionResult.SUCCESS;
     }

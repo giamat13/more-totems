@@ -4,8 +4,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
-import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.Holder;
@@ -23,7 +21,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.phys.AABB;
 
 import org.slf4j.Logger;
@@ -36,19 +33,17 @@ public class MoreTotems implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     /**
-     * When enabled, totems activate from anywhere in the player's inventory.
-     * When disabled (the default), they only work while held in a hand.
+     * When {@code true}, totems activate from anywhere in the player's inventory.
+     * When {@code false} (the default), they only work while held in a hand.
+     *
+     * TODO: expose this as a real {@code /gamerule} once the MC 26 GameRules /
+     * Fabric gamerule API class locations are confirmed.
      */
-    public static GameRules.Key<GameRules.BooleanValue> TOTEMS_WORK_IN_INVENTORY;
+    public static boolean totemsWorkInInventory = false;
 
     @Override
     public void onInitialize() {
         ModItems.initialize();
-
-        TOTEMS_WORK_IN_INVENTORY = GameRuleRegistry.register(
-                "totemsWorkInInventory",
-                GameRules.Category.PLAYER,
-                GameRuleFactory.createBooleanRule(false));
 
         // Gadget / interaction features
         SpearThrowing.register();

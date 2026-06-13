@@ -38,8 +38,9 @@ public final class RangedUtils {
 
         AABB box = player.getBoundingBox().expandTowards(dir.scale(range)).inflate(1.0);
         EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(
-                level, player, start, limit, box,
-                e -> e instanceof LivingEntity && e != player && e.isAlive() && e.isPickable());
+                player, start, limit, box,
+                e -> e instanceof LivingEntity && e != player && e.isAlive() && e.isPickable(),
+                start.distanceToSqr(limit));
 
         return entityHit != null ? entityHit : blockHit;
     }

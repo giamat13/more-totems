@@ -15,7 +15,7 @@ public class TotemUtils {
      * only count while held in a hand.
      */
     private static boolean inventoryEnabled(ServerPlayer player) {
-        return player.level().getGameRules().getBoolean(MoreTotems.TOTEMS_WORK_IN_INVENTORY);
+        return MoreTotems.totemsWorkInInventory;
     }
 
     /** Find the first totem of the given type the player can currently use. */

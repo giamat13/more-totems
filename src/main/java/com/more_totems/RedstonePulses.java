@@ -37,7 +37,7 @@ public final class RedstonePulses {
             if (!stack.is(Items.FLINT_AND_STEEL)) {
                 return InteractionResult.PASS;
             }
-            if (!level.isClientSide) {
+            if (!level.isClientSide()) {
                 BlockPos pos = hitResult.getBlockPos();
                 ACTIVE.computeIfAbsent(level.dimension(), k -> new HashMap<>())
                       .put(pos.immutable(), level.getGameTime() + PULSE_TICKS);
