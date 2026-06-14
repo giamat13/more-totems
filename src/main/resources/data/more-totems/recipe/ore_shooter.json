@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "minecraft:dropper",
+    "minecraft:iron_ingot",
+    "minecraft:iron_ingot",
+    "minecraft:redstone",
+    "minecraft:redstone"
+  ],
+  "result": {
+    "id": "more-totems:ore_shooter",
+    "count": 1
+  }
+}

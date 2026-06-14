@@ -3,6 +3,7 @@ package com.more_totems;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.Holder;
@@ -31,9 +32,22 @@ public class MoreTotems implements ModInitializer {
     public static final String MOD_ID = "more-totems";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
+    /**
+     * When {@code true} (the current default), totems activate from anywhere in
+     * the player's inventory; when {@code false}, only while held in a hand.
+     *
+     * TODO: expose this as a real toggle once the MC 26.1 game-rule *registry*
+     * API is confirmed (gamerules became a registry in 26.1).
+     */
+    public static boolean totemsWorkInInventory = true;
+
     @Override
     public void onInitialize() {
         ModItems.initialize();
+
+        // Gadget / interaction features
+        RedstonePulses.register();
+        TotemicCraftingTable.register();
 
         PayloadTypeRegistry.clientboundPlay().register(TotemActivatedPayload.TYPE, TotemActivatedPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(ShockwavePayload.TYPE, ShockwavePayload.CODEC);
@@ -50,14 +64,6 @@ public class MoreTotems implements ModInitializer {
         ServerLivingEntityEvents.ALLOW_DAMAGE.register((entity, source, amount) -> {
             if (!(entity instanceof ServerPlayer player)) return true;
             if (player.getHealth() - amount > 0) return true; // not lethal
-
-            // Keep Inventory Iron: prevent death, inventory stays intact naturally
-            if (TotemUtils.findAndDamageTotem(player, ModItems.TOTEM_OF_KEEP_INVENTORY_IRON)) {
-                player.setHealth(1.0f);
-                applyTotemEffects(player);
-                ServerPlayNetworking.send(player, TotemActivatedPayload.INSTANCE);
-                return false;
-            }
 
             // Enchant Iron: prevent death + enchant all items
             if (TotemUtils.findAndDamageTotem(player, ModItems.TOTEM_OF_ENCHANT_IRON)) {
@@ -114,6 +120,18 @@ public class MoreTotems implements ModInitializer {
             }
 
             return true;
+        });
+
+        // ── TOTEM OF DYING ─────────────────────────────────────────────────────────
+        // A cursed totem: simply holding it in either hand kills the player instantly.
+        ServerTickEvents.END_SERVER_TICK.register(server -> {
+            for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+                if (!player.isAlive()) continue;
+                if (player.getMainHandItem().is(ModItems.TOTEM_OF_DYING)
+                        || player.getOffhandItem().is(ModItems.TOTEM_OF_DYING)) {
+                    player.kill((ServerLevel) player.level());
+                }
+            }
         });
 
         LOGGER.info("More Totems initialized!");

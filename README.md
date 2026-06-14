@@ -15,16 +15,33 @@
 | **Totem of Enchant** | Saves you from a fatal blow **and applies Unbreaking III** to every piece of damageable gear you're carrying. | 10 |
 | **Totem of Shockwave** | Saves you from death and **knocks every nearby enemy back** in an 8-block shockwave. | Single use |
 
+### ☠️ Totem of Dying
+
+A cursed totem that does the opposite of the rest: **the instant you hold it in your hand, it kills you.** Handle with care. Single use (you only need it once).
+
 ### 🛡️ Iron Variants
 
-Every totem has an upgraded **Iron** version, crafted by combining the base totem with an **Iron Sword**. Iron totems are more proactive — they trigger on the **lethal hit, before you die**, rather than at the moment of death, giving you a cleaner, more reliable save. Each Iron totem carries **10 charges**.
+Every saving totem has an upgraded **Iron** version, crafted by combining the base totem with an **Iron Sword**. Iron totems are more proactive — they trigger on the **lethal hit, before you die**, rather than at the moment of death, giving you a cleaner, more reliable save. Each Iron totem carries **10 charges**.
 
-- **Iron Totem of Keep Inventory**
 - **Iron Totem of No Fall**
 - **Iron Totem of Enchant**
 - **Iron Totem of Shockwave**
 
 When a totem saves you, you also receive a burst of protective effects — **Regeneration**, **Fire Resistance**, and **Absorption** — so you get a real second chance, not just a sliver of health.
+
+---
+
+## 🧰 Gadgets & Tweaks
+
+Beyond totems, the mod adds a few combat/utility extras:
+
+| Feature | What it does |
+|---------|--------------|
+| **Grapple Hook** | Right-click while aiming at a block (up to 32 blocks away) to yank yourself toward it. Cancels the launch's fall damage. Has durability. |
+| **Ore Shooter** | A hitscan weapon that fires an ore from your inventory — the stronger the ore (coal → … → diamond → netherite), the more damage it deals. Always spends the strongest ore you carry. |
+| **Throwable Spears** | Any vanilla `*_spear` can be thrown like a trident: spend **one arrow** to hurl it, dealing tier-scaled damage, and the spear lands where it strikes so you can pick it back up. (Hitscan throw — no Riptide/Channeling, as those are water-based.) |
+| **Armoured Elytra** | Combine an **Elytra + any Chestplate** in an anvil (100 levels) to get an elytra that also grants the chestplate's armour. The anvil is **destroyed** by this single use. |
+| **Flint & Steel pulse** | Right-clicking a block with **flint and steel** emits a 2-tick redstone pulse from that block (on top of lighting fire). |
 
 ---
 
@@ -40,6 +57,9 @@ All totems are crafted **shapeless** on any crafting grid.
 | **Totem of No Fall** | Totem of Undying **+** Water Bucket |
 | **Totem of Shockwave** | Totem of Undying **+** End Crystal |
 | **Totem of Enchant** | Totem of Keep Inventory **+** Enchanting Table |
+| **Totem of Dying** | Totem of Undying **+** Wither Skeleton Skull |
+| **Grapple Hook** | Iron Ingots **+** String (shaped) |
+| **Ore Shooter** | Droppers **+** Iron Ingots **+** Redstone (shaped) |
 
 ### Iron variants
 
@@ -47,12 +67,11 @@ Each Iron totem = its **base totem + Iron Sword**.
 
 | Result | Recipe |
 |--------|--------|
-| **Iron Totem of Keep Inventory** | Totem of Keep Inventory **+** Iron Sword |
 | **Iron Totem of No Fall** | Totem of No Fall **+** Iron Sword |
 | **Iron Totem of Enchant** | Totem of Enchant **+** Iron Sword |
 | **Iron Totem of Shockwave** | Totem of Shockwave **+** Iron Sword |
 
-> 💡 The totems do **not** need to be held in your hand — they work from anywhere in your inventory.
+> 💡 By default totems only work while **held in a hand**. Enable the `totemsWorkInInventory` game rule (`/gamerule totemsWorkInInventory true`) to let them activate from **anywhere in your inventory**.
 
 ---
 

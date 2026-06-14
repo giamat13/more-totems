@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:crafting_table",
+    "minecraft:totem_of_undying"
+  ],
+  "result": {
+    "id": "more-totems:totemic_crafting_table",
+    "count": 1
+  }
+}
