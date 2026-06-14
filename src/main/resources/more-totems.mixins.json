@@ -6,7 +6,6 @@
 		"AnvilArmoredElytraMixin",
 		"ExampleMixin",
 		"FallDamageTotemMixin",
-		"LevelRedstonePulseMixin",
 		"PlayerKeepInventoryMixin"
 	],
 	"injectors": {

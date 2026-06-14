@@ -3,30 +3,32 @@ package com.more_totems;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Flint &amp; steel redstone pulse (issue #6).  Right-clicking a block with flint
- * and steel makes that block emit a redstone signal for two ticks (in addition
- * to its normal fire-lighting behaviour).
+ * Flint &amp; steel redstone pulse (issue #6).  Right-clicking a block face with
+ * flint and steel briefly places a redstone block in the air against that face,
+ * which powers everything around it for two ticks, then removes it.
  *
- * <p>The actual signal is supplied by {@code LevelRedstonePulseMixin}, which
- * reports power 15 for any position currently registered here.
+ * <p>This needs no mixin into the (renamed-on-26.1) redstone signal methods — it
+ * uses a real, vanilla power source, so it just works.
  */
 public final class RedstonePulses {
 
     private static final int PULSE_TICKS = 2;
 
-    // dimension -> (powered position -> game-time at which the pulse ends)
+    // dimension -> (temporary-redstone-block position -> game-time to remove it)
     private static final Map<ResourceKey<Level>, Map<BlockPos, Long>> ACTIVE = new HashMap<>();
 
     private RedstonePulses() {}
@@ -38,18 +40,16 @@ public final class RedstonePulses {
                 return InteractionResult.PASS;
             }
             if (!level.isClientSide()) {
-                BlockPos pos = hitResult.getBlockPos();
-                ACTIVE.computeIfAbsent(level.dimension(), k -> new HashMap<>())
-                      .put(pos.immutable(), level.getGameTime() + PULSE_TICKS);
-                level.updateNeighborsAt(pos, level.getBlockState(pos).getBlock());
-                // also poke the 6 direct neighbours so adjacent redstone recalculates
-                for (net.minecraft.core.Direction dir : net.minecraft.core.Direction.values()) {
-                    BlockPos n = pos.relative(dir);
-                    level.updateNeighborsAt(n, level.getBlockState(n).getBlock());
+                Direction face = hitResult.getDirection();
+                BlockPos placePos = hitResult.getBlockPos().relative(face);
+                if (level.getBlockState(placePos).isAir()) {
+                    level.setBlockAndUpdate(placePos, Blocks.REDSTONE_BLOCK.defaultBlockState());
+                    ACTIVE.computeIfAbsent(level.dimension(), k -> new HashMap<>())
+                          .put(placePos.immutable(), level.getGameTime() + PULSE_TICKS);
+                    MoreTotems.LOGGER.info("[redstone] pulse block placed at {}", placePos);
                 }
-                MoreTotems.LOGGER.info("[redstone] flint&steel pulse registered at {}", pos);
             }
-            return InteractionResult.PASS; // don't swallow the vanilla fire-lighting
+            return InteractionResult.PASS; // let flint&steel still light fire too
         });
 
         ServerTickEvents.END_SERVER_TICK.register(server -> {
@@ -57,18 +57,6 @@ public final class RedstonePulses {
                 expire(level);
             }
         });
-    }
-
-    /** Called from the mixin: is this position currently emitting a pulse? */
-    public static boolean isPowered(Level level, BlockPos pos) {
-        Map<BlockPos, Long> map = ACTIVE.get(level.dimension());
-        if (map == null) return false;
-        Long until = map.get(pos);
-        boolean powered = until != null && level.getGameTime() < until;
-        if (powered) {
-            MoreTotems.LOGGER.info("[redstone] getSignal hook supplying power at {}", pos);
-        }
-        return powered;
     }
 
     private static void expire(ServerLevel level) {
@@ -81,8 +69,9 @@ public final class RedstonePulses {
             if (now >= entry.getValue()) {
                 BlockPos pos = entry.getKey();
                 it.remove();
-                // depower neighbours now that the pulse is over
-                level.updateNeighborsAt(pos, level.getBlockState(pos).getBlock());
+                if (level.getBlockState(pos).is(Blocks.REDSTONE_BLOCK)) {
+                    level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                }
             }
         }
     }

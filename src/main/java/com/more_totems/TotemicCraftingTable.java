@@ -61,6 +61,8 @@ public final class TotemicCraftingTable {
         UseBlockCallback.EVENT.register((player, level, hand, hit) -> {
             if (BLOCK == null) return InteractionResult.PASS;
             if (!level.getBlockState(hit.getBlockPos()).is(BLOCK)) return InteractionResult.PASS;
+            MoreTotems.LOGGER.info("[table] clicked totemic table, client={} shift={}",
+                    level.isClientSide(), player.isShiftKeyDown());
             if (player.isShiftKeyDown()) return InteractionResult.PASS;
             if (!level.isClientSide()) {
                 MenuProvider provider = new SimpleMenuProvider(
@@ -68,6 +70,7 @@ public final class TotemicCraftingTable {
                                 ContainerLevelAccess.create(level, hit.getBlockPos())),
                         Component.literal("Totemic Crafting Table"));
                 player.openMenu(provider);
+                MoreTotems.LOGGER.info("[table] openMenu called");
             }
             return InteractionResult.SUCCESS;
         });

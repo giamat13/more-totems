@@ -31,8 +31,9 @@ public class ModItems {
     public static final Item TOTEM_OF_ENCHANT_IRON          = register("totem_of_enchant_iron", 10);
 
     // Gadgets
-    public static final Item GRAPPLE_HOOK = register("grapple_hook", GrappleHookItem::new, 64);
-    public static final Item ORE_SHOOTER  = register("ore_shooter", OreShooterItem::new, 256);
+    public static final Item GRAPPLE_HOOK   = register("grapple_hook", GrappleHookItem::new, 64);
+    public static final Item ORE_SHOOTER    = register("ore_shooter", OreShooterItem::new, 256);
+    public static final Item THROWING_SPEAR = register("throwing_spear", ThrowingSpearItem::new, 0);
 
     private static Item register(String name, int durability) {
         return register(name, Item::new, durability);
@@ -58,7 +59,8 @@ public class ModItems {
                     TOTEM_OF_NO_FALL_IRON,
                     TOTEM_OF_ENCHANT_IRON,
                     GRAPPLE_HOOK,
-                    ORE_SHOOTER
+                    ORE_SHOOTER,
+                    THROWING_SPEAR
             );
         });
     }

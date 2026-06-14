@@ -46,7 +46,6 @@ public class MoreTotems implements ModInitializer {
         ModItems.initialize();
 
         // Gadget / interaction features
-        SpearThrowing.register();
         RedstonePulses.register();
         TotemicCraftingTable.register();
 

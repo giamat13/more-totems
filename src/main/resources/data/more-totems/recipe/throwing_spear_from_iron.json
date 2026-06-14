@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "minecraft:iron_spear",
+    "minecraft:arrow"
+  ],
+  "result": {
+    "id": "more-totems:throwing_spear",
+    "count": 1
+  }
+}
