@@ -1,16 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "equipment",
-  "pattern": [
-    "DII",
-    "RR ",
-    "DII"
+  "ingredients": [
+    "minecraft:dropper",
+    "minecraft:iron_ingot",
+    "minecraft:iron_ingot",
+    "minecraft:redstone",
+    "minecraft:redstone"
   ],
-  "key": {
-    "I": "minecraft:iron_ingot",
-    "R": "minecraft:redstone",
-    "D": "minecraft:dropper"
-  },
   "result": {
     "id": "more-totems:ore_shooter",
     "count": 1

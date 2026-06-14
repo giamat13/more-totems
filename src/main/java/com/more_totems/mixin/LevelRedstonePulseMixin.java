@@ -28,4 +28,13 @@ public class LevelRedstonePulseMixin {
             cir.setReturnValue(15);
         }
     }
+
+    @Inject(method = "getDirectSignal", at = @At("HEAD"), cancellable = true, require = 0)
+    private void moreTotems$pulseDirectSignal(BlockPos pos, Direction direction,
+                                              CallbackInfoReturnable<Integer> cir) {
+        Level self = (Level) (Object) this;
+        if (RedstonePulses.isPowered(self, pos)) {
+            cir.setReturnValue(15);
+        }
+    }
 }

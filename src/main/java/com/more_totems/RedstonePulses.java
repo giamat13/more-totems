@@ -42,6 +42,12 @@ public final class RedstonePulses {
                 ACTIVE.computeIfAbsent(level.dimension(), k -> new HashMap<>())
                       .put(pos.immutable(), level.getGameTime() + PULSE_TICKS);
                 level.updateNeighborsAt(pos, level.getBlockState(pos).getBlock());
+                // also poke the 6 direct neighbours so adjacent redstone recalculates
+                for (net.minecraft.core.Direction dir : net.minecraft.core.Direction.values()) {
+                    BlockPos n = pos.relative(dir);
+                    level.updateNeighborsAt(n, level.getBlockState(n).getBlock());
+                }
+                MoreTotems.LOGGER.info("[redstone] flint&steel pulse registered at {}", pos);
             }
             return InteractionResult.PASS; // don't swallow the vanilla fire-lighting
         });
@@ -58,7 +64,11 @@ public final class RedstonePulses {
         Map<BlockPos, Long> map = ACTIVE.get(level.dimension());
         if (map == null) return false;
         Long until = map.get(pos);
-        return until != null && level.getGameTime() < until;
+        boolean powered = until != null && level.getGameTime() < until;
+        if (powered) {
+            MoreTotems.LOGGER.info("[redstone] getSignal hook supplying power at {}", pos);
+        }
+        return powered;
     }
 
     private static void expire(ServerLevel level) {

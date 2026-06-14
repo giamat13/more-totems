@@ -52,7 +52,15 @@ public final class SpearThrowing {
                 return InteractionResult.PASS;
             }
             boolean creative = player.getAbilities().instabuild;
-            if (!creative && !hasArrow(player)) {
+            boolean hasArrow = hasArrow(player);
+            MoreTotems.LOGGER.info("[spear] use {} hand={} creative={} hasArrow={}",
+                    BuiltInRegistries.ITEM.getKey(stack.getItem()), hand, creative, hasArrow);
+            if (!creative && !hasArrow) {
+                if (!level.isClientSide()) {
+                    player.displayClientMessage(
+                            net.minecraft.network.chat.Component.literal("Need an arrow to throw the spear!"),
+                            true);
+                }
                 return InteractionResult.PASS; // need an arrow to throw
             }
 
@@ -86,8 +94,12 @@ public final class SpearThrowing {
     private static Float spearDamage(ItemStack stack) {
         if (stack.isEmpty()) return null;
         Identifier id = BuiltInRegistries.ITEM.getKey(stack.getItem());
-        if (id == null || !id.getNamespace().equals("minecraft")) return null;
-        return TIER_DAMAGE.get(id.getPath());
+        if (id == null) return null;
+        String path = id.getPath();
+        if (!path.contains("spear")) return null;
+        // Exact tier match first, otherwise a sensible default for any *spear* item.
+        Float exact = TIER_DAMAGE.get(path);
+        return exact != null ? exact : 6.0f;
     }
 
     private static boolean hasArrow(Player player) {

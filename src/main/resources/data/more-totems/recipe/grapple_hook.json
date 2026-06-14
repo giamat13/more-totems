@@ -1,15 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "equipment",
-  "pattern": [
-    "III",
-    " SI",
-    "S  "
+  "ingredients": [
+    "minecraft:iron_ingot",
+    "minecraft:iron_ingot",
+    "minecraft:iron_ingot",
+    "minecraft:string",
+    "minecraft:string"
   ],
-  "key": {
-    "I": "minecraft:iron_ingot",
-    "S": "minecraft:string"
-  },
   "result": {
     "id": "more-totems:grapple_hook",
     "count": 1
