@@ -8,5 +8,7 @@
   "item.more-totems.totem_of_no_fall_iron":         "Iron Totem of No Fall",
   "item.more-totems.totem_of_enchant_iron":         "Iron Totem of Enchant",
   "item.more-totems.grapple_hook":                  "Grapple Hook",
-  "item.more-totems.ore_shooter":                   "Ore Shooter"
+  "item.more-totems.ore_shooter":                   "Ore Shooter",
+  "block.more-totems.totemic_crafting_table":       "Totemic Crafting Table",
+  "item.more-totems.totemic_crafting_table":        "Totemic Crafting Table"
 }

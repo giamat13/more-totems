@@ -33,13 +33,13 @@ public class MoreTotems implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     /**
-     * When {@code true}, totems activate from anywhere in the player's inventory.
-     * When {@code false} (the default), they only work while held in a hand.
+     * When {@code true} (the current default), totems activate from anywhere in
+     * the player's inventory; when {@code false}, only while held in a hand.
      *
-     * TODO: expose this as a real {@code /gamerule} once the MC 26 GameRules /
-     * Fabric gamerule API class locations are confirmed.
+     * TODO: expose this as a real toggle once the MC 26.1 game-rule *registry*
+     * API is confirmed (gamerules became a registry in 26.1).
      */
-    public static boolean totemsWorkInInventory = false;
+    public static boolean totemsWorkInInventory = true;
 
     @Override
     public void onInitialize() {
@@ -48,6 +48,7 @@ public class MoreTotems implements ModInitializer {
         // Gadget / interaction features
         SpearThrowing.register();
         RedstonePulses.register();
+        TotemicCraftingTable.register();
 
         PayloadTypeRegistry.clientboundPlay().register(TotemActivatedPayload.TYPE, TotemActivatedPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(ShockwavePayload.TYPE, ShockwavePayload.CODEC);
