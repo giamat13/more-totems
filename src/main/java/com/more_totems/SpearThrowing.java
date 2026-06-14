@@ -56,11 +56,6 @@ public final class SpearThrowing {
             MoreTotems.LOGGER.info("[spear] use {} hand={} creative={} hasArrow={}",
                     BuiltInRegistries.ITEM.getKey(stack.getItem()), hand, creative, hasArrow);
             if (!creative && !hasArrow) {
-                if (!level.isClientSide()) {
-                    player.displayClientMessage(
-                            net.minecraft.network.chat.Component.literal("Need an arrow to throw the spear!"),
-                            true);
-                }
                 return InteractionResult.PASS; // need an arrow to throw
             }
 
